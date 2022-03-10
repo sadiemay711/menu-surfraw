@@ -7,7 +7,10 @@
 # it in your browser of choice.
 
 # Edit here to change what browser you open links in
-browser="/usr/bin/firefox"
+browser="w3m"
+
+#If you want to open this in a new terminal windows or something
+open="st -e"
 
 usage() {
     echo "Usage: $0 [OPTIONS] [ELVIS [SEARCHTERM]]
@@ -32,8 +35,8 @@ esac
 # Path to menu application
 if [[ -n $(command -v rofi) ]]; then
 	menu="$(command -v rofi) -dmenu"
-elif [[ -n $(command -v dmenu) ]]; then
-	menu="$(command -v dmenu)"
+elif [[ -n $(command -v searchdmen) ]]; then
+	menu="$(command -v searchdmen)"
 else
 	echo "Rofi or dmenu not found, exiting."
 	exit
@@ -51,7 +54,7 @@ if [[ -z "$answerA" ]]; then
 elif [[ -z "$answerB" ]]; then
 	action=$(echo "" | $menu -p "$answerA ")
 else
-	surfraw -browser=$browser $answerA
+$open surfraw -browser=$browser $answerA
 fi
 
 # If you leave the prompt empty it will close, otherwise displaying the prompt.
